@@ -1,0 +1,10 @@
+mlflow:
+  tracking_uri: "https://dagshub.com/shreyojitdas95/mlops-diamond-price-prediction.mlflow"
+
+model:
+  n_estimators: 200
+  learning_rate: 0.05
+  max_depth: 10
+  random_state: 42
+  version: "v2.0"
+  r2_threshold: 0.8  # Model registration threshold
