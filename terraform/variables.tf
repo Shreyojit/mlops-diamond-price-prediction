@@ -6,9 +6,8 @@ variable "gcp_project_id" {
 variable "gcp_region" {
   description = "GCP Region for Cloud Run"
   type        = string
-  default     = "asia-south1"  # Change the region here
+  default     = "asia-east1"  # Change the region here
 }
-
 
 variable "dockerhub_username" {
   description = "Docker Hub Username"
