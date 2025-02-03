@@ -1,0 +1,44 @@
+name: Deploy Flask App to GCP Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: latest
+
+    - name: Authenticate to GCP
+      run: |
+        echo '${{ secrets.GCP_CREDENTIALS }}' > terraform/gcp-key.json
+        gcloud auth activate-service-account --key-file=terraform/gcp-key.json
+
+    - name: Log in to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+    - name: Pull latest image from Docker Hub
+      run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/myflaskapp:latest
+
+    - name: Initialize Terraform
+      run: |
+        cd terraform
+        terraform init
+
+    - name: Apply Terraform
+      run: |
+        cd terraform
+        terraform apply -auto-approve \
+          -var "gcp_project_id=${{ secrets.GCP_PROJECT_ID }}" \
+          -var "dockerhub_username=${{ secrets.DOCKERHUB_USERNAME }}" \
+          -var "dockerhub_token=${{ secrets.DOCKERHUB_TOKEN }}"

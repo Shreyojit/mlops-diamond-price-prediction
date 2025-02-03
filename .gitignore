@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+env/
+*.venv
+Pipfile.lock
+poetry.lock
+
+# Log files
+logs/
+*.log
+nohup.out
+
+# Environment variables
+.env
+*.env
+
+# Terraform files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/gcp-key.json
+
+# Docker ignore
+*.tar
+*.bak
+.dockerignore
+docker-compose.override.yml
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# GitHub Actions cache
+.github/workflows/.cache/
