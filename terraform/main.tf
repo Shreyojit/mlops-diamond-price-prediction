@@ -25,14 +25,6 @@ resource "google_cloud_run_service" "flask_app" {
   }
 }
 
-# Grant public access to Cloud Run service
-resource "google_cloud_run_service_iam_member" "public_access" {
-  service   = google_cloud_run_service.flask_app.name
-  location = var.gcp_region
-  role     = "roles/run.invoker"
-  member   = "allUsers"
-}
-
 output "cloud_run_url" {
   value = google_cloud_run_service.flask_app.status[0].url
 }
